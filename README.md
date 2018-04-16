@@ -24,8 +24,6 @@ This single-page app will consist of a grid map, clickable tiles and a counter t
 
 ![App Wireframe](https://user-images.githubusercontent.com/29738420/38792381-96e6509c-4101-11e8-89e0-066bee8798eb.png)
 
-Alternatively: 
-
 ### Architecture and Technologies
 
 The project will utilize: 
