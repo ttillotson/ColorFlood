@@ -22,7 +22,9 @@ Games will be randomly seeded.
 
 This single-page app will consist of a grid map, clickable tiles and a counter tracking moves made. 
 
-![App Wireframe]()
+![App Wireframe](https://user-images.githubusercontent.com/29738420/38792381-96e6509c-4101-11e8-89e0-066bee8798eb.png)
+
+Alternatively: 
 
 ### Architecture and Technologies
 
@@ -65,11 +67,11 @@ __Tuesday Day 2:__ Research Logic for converting tiles and set up selectable til
 
 __Wednesday Day 3:__ Continue working on conversion logic and expand the tests to a complete grid. 
 
-- [ ] 
+- [ ] Finalize flooding logic
 
-- [ ]
+- [ ] Fully implement turn tracking 
 
-- [ ]
+- [ ] Complete app skeleton for styling
 
 __Thursday Day 4:__ Complete working draft and finalize test runs. Style webpage and grid. 
 
@@ -90,3 +92,5 @@ __Friday Day 5:__ Submit Project
 - [ ] User Submitted Colors
 
 - [ ] Required Turns for Completion
+
+- [ ] High Scores
