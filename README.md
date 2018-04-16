@@ -28,9 +28,7 @@ This single-page app will consist of a grid map, clickable tiles and a counter t
 
 The project will utilize: 
 
-- Vanilla Javascript: handling the core logic
-
-- JQuery: DOM manipulation
+- Vanilla Javascript: handling the core logic and DOM manipulation
 
 - Webpack simplify script deployment
 
@@ -40,14 +38,14 @@ This project may feature:
 
 ### Project Timeline
 
-__Weekend__: 
+__Weekend:__
 
 - Research different games/applications
 
 - Research similar games and implementations
 
 __Monday Day 1:__ Build out necessary files: `webpack.config.js`, `package.json`, and `index.html`.
-Goals: 
+Goals:
 
 - [ ] Set Up Files
 
