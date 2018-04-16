@@ -79,7 +79,6 @@ __Thursday Day 4:__ Complete working draft and finalize test runs. Style webpage
     
     - Game completion
     - Game Reset
-    - Wins/Losses
 
 - [ ] Fully stylize the canvas
 
@@ -92,3 +91,5 @@ __Friday Day 5:__ Submit Project
 - [ ] Required Turns for Completion
 
 - [ ] High Scores
+
+- [ ] Wins/Losses tracking
