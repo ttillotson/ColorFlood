@@ -1,0 +1,29 @@
+{
+  "name": "color_flood",
+  "version": "1.0.0",
+  "description": "A color strategy game where players flood a grad with a single color.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ttillotson/ColorFlood.git"
+  },
+  "keywords": [
+    "strategy",
+    "color",
+    "vanilla",
+    "javascript"
+  ],
+  "author": "Travis Tillotson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ttillotson/ColorFlood/issues"
+  },
+  "homepage": "https://github.com/ttillotson/ColorFlood#readme",
+  "dependencies": {
+    "webpack": "^3.10.0"
+  }
+}
