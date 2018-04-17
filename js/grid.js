@@ -7,6 +7,18 @@
 // 
 // 
 // 
+const numRows = 14;
+const numCol = 14;
+
+const createTable = function (rowCount, colCount) {
+    const table = new Array(rowCount);
+    for (let row = 0; row < rowCount; row++) {
+        table[row] = new Array(colCount);
+    }
+    return table;
+};
+
+
 
 const tileColorClasses = [
     "purple",

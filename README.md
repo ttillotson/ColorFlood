@@ -73,9 +73,10 @@ __Thursday Day 4:__ Complete working draft and finalize test runs. Style webpage
 
 - [ ] Finalize the template
 
-- [ ] Test entire functionality: 
-    
+- [ ] Test entire functionality:
+
     - Game completion
+
     - Game Reset
 
 - [ ] Fully stylize the canvas
