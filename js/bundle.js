@@ -102,7 +102,7 @@ const table = new Array(14);
 /* unused harmony export table */
 
 const tiles = new Array(14);
-/* unused harmony export tiles */
+/* harmony export (immutable) */ __webpack_exports__["b"] = tiles;
 
 
 function createGrid (rowCount, colCount) {
@@ -121,6 +121,7 @@ function createGrid (rowCount, colCount) {
     }
 
     table[0][0].flooded = true;
+    tiles[0][0].flooded = true;
     return table;
 }
 
@@ -129,8 +130,10 @@ function buildTile(tileColor, row, col, parentEl) {
     tile.row = row;
     tile.col = col;
     tile.id = 'tile';
+    tile.flooded = false;
     tile.className = `${tileColor}`;
-    tile.onclick = __WEBPACK_IMPORTED_MODULE_0__flood_logic__["a" /* handleFlood */];
+    const originTile = tiles[0][0] || tile;
+    tile.onclick = Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["a" /* handleFlood */])(originTile.className, tile.className);
     parentEl.appendChild(tile);
     return tile;
 }
@@ -153,25 +156,53 @@ const colorClass = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export moves */
 /* harmony export (immutable) */ __webpack_exports__["a"] = handleFlood;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main__ = __webpack_require__(0);
 
 
 
-function handleFlood() {
+let moves = -1;
+let finished = false;
 
+function handleFlood(oldColor, newColor) {
+
+}
+
+function floodTile(row, col, color) {
+    __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className = color;
+    __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded = true;
 }
 
 function floodNeighbors(row, col, color) {
-    if (row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"] - 1) testFlood(row - 1, col, color);
-    if (row > 0) testFlood(row + 1, col, color);
-    if (col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"] - 1) testFlood(row, col - 1, color);
-    if (col > 0) testFlood(row, col + 1, color);
+    if (row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"] - 1) canBeFlooded(row + 1, col, color);
+    if (row > 0) canBeFlooded(row - 1, col, color);
+    if (col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"] - 1) canBeFlooded(row, col + 1, color);
+    if (col > 0) canBeFlooded(row, col - 1, color);
 }
 
-function testFlood(row, col, color) {
-    
+function canBeFlooded(row, col, color) {
+    if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) return; // Skip if it is already flooded
+    if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className === color){
+        __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded = true;    // Toggle Flood
+        floodNeighbors(row, col, color);   // Check the neighbors
+    }
+}
+
+function floodedBoard(){
+    for (let row = 0; row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"]; row++){
+        for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"]; col++){
+            if (!__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) return;
+        }
+    }
+    finished = true;
+}
+
+function gameOver() {
+    if (floodedBoard) {
+
+    }
 }
 
 /***/ })

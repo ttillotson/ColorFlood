@@ -23,6 +23,7 @@ export function createGrid (rowCount, colCount) {
     }
 
     table[0][0].flooded = true;
+    tiles[0][0].flooded = true;
     return table;
 }
 
@@ -31,8 +32,10 @@ function buildTile(tileColor, row, col, parentEl) {
     tile.row = row;
     tile.col = col;
     tile.id = 'tile';
+    tile.flooded = false;
     tile.className = `${tileColor}`;
-    tile.onclick = handleFlood;
+    const originTile = tiles[0][0] || tile;
+    tile.onclick = handleFlood(originTile.className, tile.className);
     parentEl.appendChild(tile);
     return tile;
 }
