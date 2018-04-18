@@ -25,10 +25,10 @@
     border: 0px;
     transform: scale(-1, -1);
     -webkit-transition-property: background-color, transform;
-    -webkit-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.5s;
     -webkit-transition-timing-function: linear;
     transition-property: background-color, transform;
-    transition-duration: 0.2s;
+    transition-duration: 0.5s;
     transition-timing-function: linear;
     &:hover {
         cursor: pointer;

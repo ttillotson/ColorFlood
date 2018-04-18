@@ -2,13 +2,26 @@ import { table, tiles } from './grid';
 import { numRows, numCols } from './main';
 
 export let moves = -1;
+const maxMoves = 25;
 let finished = false;
 
 export function handleFlood(oldColor, newColor) {
-
+    if (finished) return;
+    // Do nothing if clicked tile is original
+    if (oldColor === newColor) return;
+    moves++;
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            if (tiles[row][col].flooded) {
+                floodTile(row, col, newColor);
+                floodNeighbors(row, col, newColor);
+            }
+        }
+    }
 }
 
 function floodTile(row, col, color) {
+    tiles[row][col].className = '';
     tiles[row][col].className = color;
     tiles[row][col].flooded = true;
 }
@@ -38,7 +51,11 @@ function floodedBoard(){
 }
 
 function gameOver() {
-    if (floodedBoard) {
-
+    if (finished){
+        if (moves <= maxMoves) {
+            alert('You won!');
+        } else {
+            alert('You Lost!');
+        }
     }
 }

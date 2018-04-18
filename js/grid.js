@@ -1,9 +1,5 @@
 import { handleFlood } from './flood_logic';
 
-// Function to build grid - 14 <ul> by 14 <li>
-// - Assigns random tile color
-// 
-// 
 export const table = new Array(14);
 export const tiles = new Array(14);
 
@@ -24,6 +20,7 @@ export function createGrid (rowCount, colCount) {
 
     table[0][0].flooded = true;
     tiles[0][0].flooded = true;
+    handleFlood(null, tiles[0][0].className);
     return table;
 }
 
@@ -35,7 +32,7 @@ function buildTile(tileColor, row, col, parentEl) {
     tile.flooded = false;
     tile.className = `${tileColor}`;
     const originTile = tiles[0][0] || tile;
-    tile.onclick = handleFlood(originTile.className, tile.className);
+    tile.onclick = () => handleFlood(originTile.className, tile.className);
     parentEl.appendChild(tile);
     return tile;
 }

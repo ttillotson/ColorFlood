@@ -94,10 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__flood_logic__ = __webpack_require__(2);
 
 
-// Function to build grid - 14 <ul> by 14 <li>
-// - Assigns random tile color
-// 
-// 
 const table = new Array(14);
 /* unused harmony export table */
 
@@ -122,6 +118,7 @@ function createGrid (rowCount, colCount) {
 
     table[0][0].flooded = true;
     tiles[0][0].flooded = true;
+    Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["a" /* handleFlood */])(null, tiles[0][0].className);
     return table;
 }
 
@@ -133,7 +130,7 @@ function buildTile(tileColor, row, col, parentEl) {
     tile.flooded = false;
     tile.className = `${tileColor}`;
     const originTile = tiles[0][0] || tile;
-    tile.onclick = Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["a" /* handleFlood */])(originTile.className, tile.className);
+    tile.onclick = () => Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["a" /* handleFlood */])(originTile.className, tile.className);
     parentEl.appendChild(tile);
     return tile;
 }
@@ -164,13 +161,26 @@ const colorClass = function () {
 
 
 let moves = -1;
+const maxMoves = 25;
 let finished = false;
 
 function handleFlood(oldColor, newColor) {
-
+    if (finished) return;
+    // Do nothing if clicked tile is original
+    if (oldColor === newColor) return;
+    moves++;
+    for (let row = 0; row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"]; row++) {
+        for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"]; col++) {
+            if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) {
+                floodTile(row, col, newColor);
+                floodNeighbors(row, col, newColor);
+            }
+        }
+    }
 }
 
 function floodTile(row, col, color) {
+    __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className = '';
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className = color;
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded = true;
 }
@@ -200,8 +210,12 @@ function floodedBoard(){
 }
 
 function gameOver() {
-    if (floodedBoard) {
-
+    if (finished){
+        if (moves <= maxMoves) {
+            alert('You won!');
+        } else {
+            alert('You Lost!');
+        }
     }
 }
 
