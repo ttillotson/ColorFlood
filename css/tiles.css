@@ -1,0 +1,48 @@
+#flood_grid {
+  margin: auto; }
+  #flood_grid .row {
+    display: flex; }
+
+#frame_container {
+  width: 80vw;
+  margin: auto; }
+
+.heading {
+  display: flex;
+  font-family: 'Do Hyeon', sans-serif;
+  margin: auto; }
+
+#tile {
+  min-width: 50px;
+  min-height: 50px;
+  display: block;
+  border: 0px;
+  transform: scale(-1, -1);
+  -webkit-transition-property: background-color, transform;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: linear;
+  transition-property: background-color, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: linear; }
+  #tile:hover {
+    cursor: pointer; }
+
+.purple {
+  background-color: #C200FB; }
+
+.blue {
+  background-color: #63ADF2; }
+
+.green {
+  background-color: #A9F200; }
+
+.red {
+  background-color: #FC2F00; }
+
+.yellow {
+  background-color: #FFEA0A; }
+
+.orange {
+  background-color: #FFB52D; }
+
+/*# sourceMappingURL=tiles.css.map */

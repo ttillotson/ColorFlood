@@ -72,9 +72,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid__ = __webpack_require__(1);
 
 
+const numRows = 14;
+/* harmony export (immutable) */ __webpack_exports__["numRows"] = numRows;
+
+const numCols = 14;
+/* harmony export (immutable) */ __webpack_exports__["numCols"] = numCols;
+
 document.addEventListener('DOMContentLoaded', () => {
-    const numRows = 14;
-    const numCols = 14;
 
     Object(__WEBPACK_IMPORTED_MODULE_0__grid__["a" /* createGrid */])(numRows, numCols);
 });
@@ -95,13 +99,18 @@ document.addEventListener('DOMContentLoaded', () => {
 // 
 // 
 const table = new Array(14);
+/* unused harmony export table */
+
 const tiles = new Array(14);
+/* unused harmony export tiles */
+
 
 function createGrid (rowCount, colCount) {
     for (let row = 0; row < rowCount; row++) {
         const displayTable = document.getElementById('flood_grid');
         table[row] = new Array(colCount);
         const newRow = document.createElement('ul');
+        newRow.className = 'row';
         tiles[row] = newRow;
         for (let col = 0; col < colCount; col++){
             const tileColor = colorClass();
@@ -110,15 +119,17 @@ function createGrid (rowCount, colCount) {
         }
         displayTable.appendChild(newRow);
     }
-    
+
+    table[0][0].flooded = true;
     return table;
 }
 
 function buildTile(tileColor, row, col, parentEl) {
     let tile = document.createElement('li');
-    tile.dataset.row = row;
-    tile.dataset.col = col;
-    tile.className = `tile ${tileColor}`;
+    tile.row = row;
+    tile.col = col;
+    tile.id = 'tile';
+    tile.className = `${tileColor}`;
     tile.onclick = __WEBPACK_IMPORTED_MODULE_0__flood_logic__["a" /* handleFlood */];
     parentEl.appendChild(tile);
     return tile;
@@ -143,7 +154,23 @@ const colorClass = function () {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = handleFlood;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main__ = __webpack_require__(0);
+
+
+
 function handleFlood() {
+
+}
+
+function floodNeighbors(row, col, color) {
+    if (row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"] - 1) testFlood(row - 1, col, color);
+    if (row > 0) testFlood(row + 1, col, color);
+    if (col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"] - 1) testFlood(row, col - 1, color);
+    if (col > 0) testFlood(row, col + 1, color);
+}
+
+function testFlood(row, col, color) {
     
 }
 

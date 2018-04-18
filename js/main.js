@@ -1,8 +1,8 @@
 import { createGrid } from './grid';
 
+export const numRows = 14;
+export const numCols = 14;
 document.addEventListener('DOMContentLoaded', () => {
-    const numRows = 14;
-    const numCols = 14;
 
     createGrid(numRows, numCols);
 });
