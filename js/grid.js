@@ -1,16 +1,13 @@
-import { handleFlood } from 'flood_logic';
+import { handleFlood } from './flood_logic';
 
 // Function to build grid - 14 <ul> by 14 <li>
 // - Assigns random tile color
 // 
 // 
-
-const numRows = 14;
-const numCol = 14;
+const table = new Array(14);
+const tiles = new Array(14);
 
 export function createGrid (rowCount, colCount) {
-    const table = new Array(rowCount);
-    const tiles = new Array(rowCount);
     for (let row = 0; row < rowCount; row++) {
         const displayTable = document.getElementById('flood_grid');
         table[row] = new Array(colCount);
@@ -23,6 +20,7 @@ export function createGrid (rowCount, colCount) {
         }
         displayTable.appendChild(newRow);
     }
+    
     return table;
 }
 
@@ -30,9 +28,10 @@ function buildTile(tileColor, row, col, parentEl) {
     let tile = document.createElement('li');
     tile.dataset.row = row;
     tile.dataset.col = col;
-    tile.class = `tile ${tileColor}`;
+    tile.className = `tile ${tileColor}`;
     tile.onclick = handleFlood;
     parentEl.appendChild(tile);
+    return tile;
 }
 
 const tileColorClasses = [
