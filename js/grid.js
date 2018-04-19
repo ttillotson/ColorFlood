@@ -1,26 +1,37 @@
-import { handleFlood } from './flood_logic';
+import { handleFlood, displayInfo } from './flood_logic';
 
 export const table = new Array(14);
 export const tiles = new Array(14);
 
-export function createGrid (rowCount, colCount) {
+function createContainers() {
+    const displayTable = document.createElement('section');
+    displayTable.id = 'flood_grid';
+    const infoAside = document.createElement('aside');
+    infoAside.id = 'info';
+    const gameContainer = document.getElementById('game_container');
+    gameContainer.appendChild(infoAside);
+    gameContainer.appendChild(displayTable);
+    return displayTable;
+}
+
+export function createGrid (rowCount, colCount, numColors) {
+    const displayTable = createContainers();
     for (let row = 0; row < rowCount; row++) {
-        const displayTable = document.getElementById('flood_grid');
         table[row] = new Array(colCount);
         const newRow = document.createElement('ul');
         newRow.className = 'row';
         tiles[row] = newRow;
         for (let col = 0; col < colCount; col++){
-            const tileColor = colorClass();
+            const tileColor = colorClass(numColors);
             table[row][col] = { color: tileColor, flooded: false };
             tiles[row][col] = buildTile(tileColor, row, col, newRow);
         }
         displayTable.appendChild(newRow);
     }
-
     table[0][0].flooded = true;
     tiles[0][0].flooded = true;
     handleFlood(null, tiles[0][0].className);
+    
     return table;
 }
 
@@ -39,13 +50,15 @@ function buildTile(tileColor, row, col, parentEl) {
 
 const tileColorClasses = [
     "purple",
+    "red",
     "blue",
     "green",
-    "red",
+    "orange",
     "yellow",
-    "orange"
+    "grey",
+    "teal"
 ];
 
-const colorClass = function () {
-    return tileColorClasses[Math.floor(Math.random() * Math.floor(6))];
+const colorClass = function (numColors) {
+    return tileColorClasses[Math.floor(Math.random() * Math.floor(numColors))];
 };

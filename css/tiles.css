@@ -1,3 +1,9 @@
+#game_container {
+  display: flex; }
+
+#info {
+  min-width: 250px; }
+
 #flood_grid {
   margin: auto; }
   #flood_grid .row {
@@ -9,8 +15,12 @@
 
 .heading {
   display: flex;
+  width: 300px;
+  justify-content: space-between;
   font-family: 'Do Hyeon', sans-serif;
   margin: auto; }
+  .heading h1 {
+    font-size: 36px; }
 
 #tile {
   min-width: 50px;
@@ -44,5 +54,35 @@
 
 .orange {
   background-color: #FFB52D; }
+
+.grey {
+  background-color: #A8AFAE; }
+
+.teal {
+  background-color: #37F2D3; }
+
+.title_purple {
+  color: #C200FB; }
+
+.title_blue {
+  color: #63ADF2; }
+
+.title_green {
+  color: #A9F200; }
+
+.title_red {
+  color: #FC2F00; }
+
+.title_yellow {
+  color: #FFEA0A; }
+
+.title_orange {
+  color: #FFB52D; }
+
+.title_grey {
+  background-color: #A8AFAE; }
+
+.title_teal {
+  background-color: #37F2D3; }
 
 /*# sourceMappingURL=tiles.css.map */

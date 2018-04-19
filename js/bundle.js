@@ -69,18 +69,42 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numRows", function() { return numRows; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numCols", function() { return numCols; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "numColors", function() { return numColors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "maxMoves", function() { return maxMoves; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid__ = __webpack_require__(1);
 
 
-const numRows = 14;
-/* harmony export (immutable) */ __webpack_exports__["numRows"] = numRows;
+let numRows = 14;
+let numCols = 14;
+let numColors = 6;
+let maxMoves = 25;
 
-const numCols = 14;
-/* harmony export (immutable) */ __webpack_exports__["numCols"] = numCols;
+function setGridSpecs() {
+    let queryString = window.location.search;
+    if (queryString === null || queryString === "" || queryString == "?") return;
+    queryString = queryString.substr(1);
+    const gameParams = queryString.split("&");
+    for (let i = 0; i < gameParams.length; i++) {
+        const param = gameParams[i].split("=");
+        const paramName = param[0];
+        const paramValue = param[1];
+        if (paramName === 'size') {
+            numCols = Number(paramValue);
+            numRows = Number(paramValue);
+        } else if (paramName === 'numColors') {
+            numColors = Number(paramValue);
+        }
+    }
+    let defaultConditions = (14 + 14) * 6;
+    let gameConditions = (numRows + numCols) * numColors;
+    maxMoves = Math.floor(25 * (gameConditions / defaultConditions));
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    Object(__WEBPACK_IMPORTED_MODULE_0__grid__["a" /* createGrid */])(numRows, numCols);
+    setGridSpecs();
+    Object(__WEBPACK_IMPORTED_MODULE_0__grid__["a" /* createGrid */])(numRows, numCols, numColors);
 });
 
 
@@ -101,24 +125,35 @@ const tiles = new Array(14);
 /* harmony export (immutable) */ __webpack_exports__["b"] = tiles;
 
 
-function createGrid (rowCount, colCount) {
+function createContainers() {
+    const displayTable = document.createElement('section');
+    displayTable.id = 'flood_grid';
+    const infoAside = document.createElement('aside');
+    infoAside.id = 'info';
+    const gameContainer = document.getElementById('game_container');
+    gameContainer.appendChild(infoAside);
+    gameContainer.appendChild(displayTable);
+    return displayTable;
+}
+
+function createGrid (rowCount, colCount, numColors) {
+    const displayTable = createContainers();
     for (let row = 0; row < rowCount; row++) {
-        const displayTable = document.getElementById('flood_grid');
         table[row] = new Array(colCount);
         const newRow = document.createElement('ul');
         newRow.className = 'row';
         tiles[row] = newRow;
         for (let col = 0; col < colCount; col++){
-            const tileColor = colorClass();
+            const tileColor = colorClass(numColors);
             table[row][col] = { color: tileColor, flooded: false };
             tiles[row][col] = buildTile(tileColor, row, col, newRow);
         }
         displayTable.appendChild(newRow);
     }
-
     table[0][0].flooded = true;
     tiles[0][0].flooded = true;
     Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["a" /* handleFlood */])(null, tiles[0][0].className);
+    
     return table;
 }
 
@@ -137,16 +172,19 @@ function buildTile(tileColor, row, col, parentEl) {
 
 const tileColorClasses = [
     "purple",
+    "red",
     "blue",
     "green",
-    "red",
+    "orange",
     "yellow",
-    "orange"
+    "grey",
+    "teal"
 ];
 
-const colorClass = function () {
-    return tileColorClasses[Math.floor(Math.random() * Math.floor(6))];
+const colorClass = function (numColors) {
+    return tileColorClasses[Math.floor(Math.random() * Math.floor(numColors))];
 };
+
 
 /***/ }),
 /* 2 */
@@ -154,15 +192,29 @@ const colorClass = function () {
 
 "use strict";
 /* unused harmony export moves */
+/* unused harmony export displayInfo */
 /* harmony export (immutable) */ __webpack_exports__["a"] = handleFlood;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main__ = __webpack_require__(0);
 
 
 
-let moves = -1;
-const maxMoves = 25;
+let moves = -1;    // Call flood when creating grid to attach initial matches
 let finished = false;
+
+
+function displayInfo() {
+    const infoEl = document.getElementById('info');
+    const movesEl = document.createElement('h3');
+    const instructionsEl = document.createElement('h4');
+
+    movesEl.innerHTML = moves + '/' + __WEBPACK_IMPORTED_MODULE_1__main__["maxMoves"];
+    instructionsEl.innerHTML = "Click a tile and try to flood the map!";
+
+    infoEl.appendChild(movesEl);
+    if (moves < 1) infoEl.appendChild(instructionsEl);
+    
+}
 
 function handleFlood(oldColor, newColor) {
     if (finished) return;
@@ -177,6 +229,8 @@ function handleFlood(oldColor, newColor) {
             }
         }
     }
+    gameOver();
+    displayInfo();
 }
 
 function floodTile(row, col, color) {
@@ -195,8 +249,8 @@ function floodNeighbors(row, col, color) {
 function canBeFlooded(row, col, color) {
     if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) return; // Skip if it is already flooded
     if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className === color){
-        __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded = true;    // Toggle Flood
-        floodNeighbors(row, col, color);   // Check the neighbors
+        floodTile(row, col, color);    // Toggle Flood
+        setTimeout(floodNeighbors(row, col, color), 15);   // Check the neighbors
     }
 }
 
@@ -210,8 +264,9 @@ function floodedBoard(){
 }
 
 function gameOver() {
+    floodedBoard();
     if (finished){
-        if (moves <= maxMoves) {
+        if (moves <= __WEBPACK_IMPORTED_MODULE_1__main__["maxMoves"]) {
             alert('You won!');
         } else {
             alert('You Lost!');

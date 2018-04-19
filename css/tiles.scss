@@ -1,6 +1,14 @@
 // body {
 //     background-image: ;
 // }
+#game_container {
+    display: flex;
+}
+
+#info {
+    min-width: 250px; // display: block;
+}
+
 #flood_grid {
     margin: auto;
     .row {
@@ -15,9 +23,15 @@
 
 .heading {
     display: flex;
+    width: 300px;
+    justify-content: space-between;
     font-family: 'Do Hyeon', sans-serif;
     margin: auto;
+    h1 {
+        font-size: 36px;
+    }
 }
+
 #tile {
     min-width: 50px;
     min-height: 50px;
@@ -34,21 +48,60 @@
         cursor: pointer;
     }
 }
+
 .purple {
     background-color: #C200FB;
 }
+
 .blue {
     background-color: #63ADF2;
 }
+
 .green {
     background-color: #A9F200;
 }
+
 .red {
     background-color: #FC2F00;
 }
+
 .yellow {
     background-color: #FFEA0A;
 }
+
 .orange {
     background-color: #FFB52D;
+}
+
+.grey {
+    background-color: #A8AFAE;
+}
+
+.teal {
+    background-color: #37F2D3;
+}
+
+.title_purple {
+    color: #C200FB;
+}
+.title_blue {
+    color: #63ADF2;
+}
+.title_green {
+    color: #A9F200;
+}
+.title_red {
+    color: #FC2F00;
+}
+.title_yellow {
+    color: #FFEA0A;
+}
+.title_orange {
+    color: #FFB52D;
+}
+.title_grey {
+    background-color: #A8AFAE;
+}
+.title_teal {
+    background-color: #37F2D3;
 }

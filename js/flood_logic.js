@@ -1,9 +1,22 @@
 import { table, tiles } from './grid';
-import { numRows, numCols } from './main';
+import { numRows, numCols, maxMoves } from './main';
 
-export let moves = -1;
-const maxMoves = 25;
+export let moves = -1;    // Call flood when creating grid to attach initial matches
 let finished = false;
+
+
+export function displayInfo() {
+    const infoEl = document.getElementById('info');
+    const movesEl = document.createElement('h3');
+    const instructionsEl = document.createElement('h4');
+
+    movesEl.innerHTML = moves + '/' + maxMoves;
+    instructionsEl.innerHTML = "Click a tile and try to flood the map!";
+
+    infoEl.appendChild(movesEl);
+    if (moves < 1) infoEl.appendChild(instructionsEl);
+    
+}
 
 export function handleFlood(oldColor, newColor) {
     if (finished) return;
@@ -18,6 +31,8 @@ export function handleFlood(oldColor, newColor) {
             }
         }
     }
+    gameOver();
+    displayInfo();
 }
 
 function floodTile(row, col, color) {
@@ -36,8 +51,8 @@ function floodNeighbors(row, col, color) {
 function canBeFlooded(row, col, color) {
     if (tiles[row][col].flooded) return; // Skip if it is already flooded
     if (tiles[row][col].className === color){
-        tiles[row][col].flooded = true;    // Toggle Flood
-        floodNeighbors(row, col, color);   // Check the neighbors
+        floodTile(row, col, color);    // Toggle Flood
+        setTimeout(floodNeighbors(row, col, color), 15);   // Check the neighbors
     }
 }
 
@@ -51,6 +66,7 @@ function floodedBoard(){
 }
 
 function gameOver() {
+    floodedBoard();
     if (finished){
         if (moves <= maxMoves) {
             alert('You won!');
