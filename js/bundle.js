@@ -370,14 +370,15 @@ function floodedBoard(){
         }
     }
     finished = true;
+    return true;
 }
 
 function gameOver() {
     floodedBoard();
     if (floodedBoard()){
         victory();
+
     } else if (moves >= __WEBPACK_IMPORTED_MODULE_2__setup_js__["a" /* maxMoves */]) {
-        finished = true;
         defeat();
     }
 } 
@@ -404,6 +405,7 @@ function updateInfo() {
 
 function resetMoves() {
     moves = -1;
+    finished = false;
 }
 
 /***/ })

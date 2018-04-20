@@ -51,14 +51,15 @@ function floodedBoard(){
         }
     }
     finished = true;
+    return true;
 }
 
 function gameOver() {
     floodedBoard();
     if (floodedBoard()){
         victory();
+
     } else if (moves >= maxMoves) {
-        finished = true;
         defeat();
     }
 } 
@@ -85,4 +86,5 @@ function updateInfo() {
 
 export function resetMoves() {
     moves = -1;
+    finished = false;
 }
