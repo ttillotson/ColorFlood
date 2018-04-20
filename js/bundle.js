@@ -278,8 +278,12 @@ function createNewGame(e) {
     const { numColors } = setGridSpecs();
     const gameContainer = document.getElementById('game_container');
     const leftContainer = document.getElementById('left_container');
+    const links = document.getElementById('links_container');
+    const page = document.getElementById('page_container');
     const info = document.getElementById('info');
     const floodGrid = document.getElementById('flood_grid');
+
+    page.removeChild(links);
     gameContainer.removeChild(floodGrid);
     leftContainer.removeChild(info);
     Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["c" /* resetMoves */])();
@@ -313,7 +317,7 @@ function addLinks() {
 
     const linksContainer = document.createElement('section');
     const linksContent = document.createElement('article');
-    linksContainer.className = 'links_container';
+    linksContainer.id = 'links_container';
     linksContent.className = 'links';
 
     const linkedIn = createLink("fab fa-linkedin", "https://www.linkedin.com/in/travis-tillotson");
