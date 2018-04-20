@@ -1,8 +1,10 @@
 # Color Flood: From Jackson Pollock to Yves Klein
 
+[LiveDemo!](https://ttillotson.github.io/ColorFlood/)
+
 ### Background and Overview
 
-Color Flood is an interactive, grid-based, strategy coloring game. A mouthful I'm sure, but the user's objective is to convert the entire grid to a single color by clicking tiles at the bottom and "flooding" the map from the top left tile. The fewer turns the better!
+Color Flood is an perfect-information, grid-based, strategy game. A mouthful I know, but the user's objective is to convert the entire grid to a single color by clicking tiles on the board and "flooding" the map from the top left tile. The fewer turns the better!
 
 ### Functionality and MVPs
 
@@ -17,6 +19,11 @@ Users will be able to:
 - [ ] Select how many colors to use
 
 Games will be randomly seeded.
+
+### Demo
+
+![flood it demo](https://user-images.githubusercontent.com/29738420/39071719-fd0e5b64-449c-11e8-9a4f-dc497d7ff838.gif)
+
 
 ### Wireframes
 
