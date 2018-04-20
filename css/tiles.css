@@ -71,7 +71,8 @@ body {
   .links_container i {
     color: rgba(0, 0, 0, 0.7);
     font-size: 40px;
-    padding: 0 10px; }
+    padding: 0 10px;
+    margin-bottom: 10px; }
 
 #color_count {
   -webkit-appearance: none;
