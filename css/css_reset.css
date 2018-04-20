@@ -29,7 +29,8 @@ img {
 
 button,
 input[type="submit"],
-input[type="reset"] {
+input[type="reset"],
+input[type="select"] {
     background: none;
     color: inherit;
     border: none;
@@ -38,6 +39,7 @@ input[type="reset"] {
     cursor: pointer;
     outline: inherit;
     text-align: inherit;
+
 }
 
 input[type="password"],

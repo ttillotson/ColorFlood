@@ -5,12 +5,24 @@ body {
   font-size: 30px; }
 
 #game_container {
-  display: flex; }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%; }
+
+#left_container {
+  margin-right: 75px; }
 
 #info {
   min-width: 250px;
-  text-align: center;
-  margin-right: 75px; }
+  text-align: center; }
+
+#page_container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
 
 #flood_grid {
   margin: auto; }
@@ -19,11 +31,16 @@ body {
 
 #frame_container {
   width: 1200px;
-  margin: auto; }
+  margin: auto;
+  display: flex; }
 
 #completion {
-  min-height: 200px;
-  vertical-align: middle; }
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; }
+  #completion h4 {
+    font-size: 45px; }
 
 #form {
   display: flex;
@@ -35,23 +52,34 @@ body {
 
 .heading {
   display: flex;
-  width: 300px;
+  width: 365px;
   justify-content: space-between;
-  margin: auto; }
+  margin: auto;
+  margin-bottom: 10px; }
   .heading h1 {
-    font-size: 42px; }
+    font-size: 50px; }
+
+#color_count {
+  -webkit-appearance: none;
+  padding: 0px 18px;
+  padding-top: 7px;
+  background-color: rgba(22, 83, 112, 0.6);
+  border: none;
+  color: #DBDAE8;
+  font-size: 26px;
+  font-family: 'Do Hyeon', sans-serif; }
 
 #tile {
   min-width: 50px;
   min-height: 50px;
   display: block;
   border: 0px;
-  transform: scale(-1, -1);
+  transform: scaleY(-1);
   -webkit-transition-property: background-color, transform;
-  -webkit-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.25s;
   -webkit-transition-timing-function: linear;
   transition-property: background-color, transform;
-  transition-duration: 0.5s;
+  transition-duration: 0.25s;
   transition-timing-function: linear; }
   #tile:hover {
     cursor: pointer; }

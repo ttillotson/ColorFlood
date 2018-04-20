@@ -15,7 +15,7 @@ export function handleFlood(oldColor, newColor) {
         for (let col = 0; col < numCols; col++) {
             if (tiles[row][col].flooded) {
                 floodTile(row, col, newColor);
-                floodNeighbors(row, col, newColor);
+                setInterval(floodNeighbors(row, col, newColor), 40000);
             }
         }
     }
@@ -40,7 +40,7 @@ function canBeFlooded(row, col, color) {
     if (tiles[row][col].flooded) return; // Skip if it is already flooded
     if (tiles[row][col].className === color){
         floodTile(row, col, color);    // Toggle Flood
-        setTimeout(floodNeighbors(row, col, color), 15);   // Check the neighbors
+        // setTimeout(floodNeighbors(row, col, color), 2000);   // Check the neighbors
     }
 }
 
@@ -67,6 +67,7 @@ function gameOver() {
 function victory() {
     const completionContainer = document.getElementById('completion');
     const won = document.createElement('h4');
+    won.className = 'title_green';
     won.innerHTML = "You Won!";
     completionContainer.appendChild(won);
 }
@@ -74,6 +75,7 @@ function victory() {
 function defeat() {
     const completionContainer = document.getElementById('completion');
     const loss = document.createElement('h4');
+    loss.className = 'title_red';
     loss.innerHTML = "You Lost!";
     completionContainer.appendChild(loss);
 }

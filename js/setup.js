@@ -9,6 +9,7 @@ export { maxMoves };
 
 export function setupDOM() {
     const gameContainer = document.getElementById('game_container');
+    const leftContainer = document.getElementById('left_container');
     const displayGrid = document.createElement('section');
     displayGrid.id = 'flood_grid';
     const infoAside = document.createElement('aside');
@@ -22,7 +23,7 @@ export function setupDOM() {
     const instructions = document.createElement('article');
     instructions.id = 'instructions';
 
-    gameContainer.appendChild(infoAside);
+    leftContainer.appendChild(infoAside);
     infoAside.appendChild(gameState);
     infoAside.appendChild(gridForm);
     infoAside.appendChild(completionContainer);
@@ -94,7 +95,7 @@ function createDropdown(optionArr) {
         option.innerHTML = optionArr[i][0];
         option.value = optionArr[i][1];
         option.type = 'select';
-        if (optionArr[i][2]) option.selected = true; // TEST THIS
+        if (optionArr[i][2]) option.selected = true;
         dropDown.appendChild(option);
     }
     return dropDown;
@@ -105,10 +106,11 @@ function createNewGame(e) {
     // const { numRows, numCols, numColors } = setGridSpecs();
     const { numColors } = setGridSpecs();
     const gameContainer = document.getElementById('game_container');
+    const leftContainer = document.getElementById('left_container');
     const info = document.getElementById('info');
     const floodGrid = document.getElementById('flood_grid');
     gameContainer.removeChild(floodGrid);
-    gameContainer.removeChild(info);
+    leftContainer.removeChild(info);
     resetMoves();
     setupDOM();
     createGrid(14, 14, numColors);

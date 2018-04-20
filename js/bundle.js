@@ -179,6 +179,7 @@ let maxMoves = 25;
 
 function setupDOM() {
     const gameContainer = document.getElementById('game_container');
+    const leftContainer = document.getElementById('left_container');
     const displayGrid = document.createElement('section');
     displayGrid.id = 'flood_grid';
     const infoAside = document.createElement('aside');
@@ -192,7 +193,7 @@ function setupDOM() {
     const instructions = document.createElement('article');
     instructions.id = 'instructions';
 
-    gameContainer.appendChild(infoAside);
+    leftContainer.appendChild(infoAside);
     infoAside.appendChild(gameState);
     infoAside.appendChild(gridForm);
     infoAside.appendChild(completionContainer);
@@ -264,7 +265,7 @@ function createDropdown(optionArr) {
         option.innerHTML = optionArr[i][0];
         option.value = optionArr[i][1];
         option.type = 'select';
-        if (optionArr[i][2]) option.selected = true; // TEST THIS
+        if (optionArr[i][2]) option.selected = true;
         dropDown.appendChild(option);
     }
     return dropDown;
@@ -275,10 +276,11 @@ function createNewGame(e) {
     // const { numRows, numCols, numColors } = setGridSpecs();
     const { numColors } = setGridSpecs();
     const gameContainer = document.getElementById('game_container');
+    const leftContainer = document.getElementById('left_container');
     const info = document.getElementById('info');
     const floodGrid = document.getElementById('flood_grid');
     gameContainer.removeChild(floodGrid);
-    gameContainer.removeChild(info);
+    leftContainer.removeChild(info);
     Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["c" /* resetMoves */])();
     setupDOM();
     Object(__WEBPACK_IMPORTED_MODULE_1__grid__["a" /* createGrid */])(14, 14, numColors);
@@ -334,7 +336,7 @@ function handleFlood(oldColor, newColor) {
         for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"]; col++) {
             if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) {
                 floodTile(row, col, newColor);
-                floodNeighbors(row, col, newColor);
+                setInterval(floodNeighbors(row, col, newColor), 40000);
             }
         }
     }
@@ -359,7 +361,7 @@ function canBeFlooded(row, col, color) {
     if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) return; // Skip if it is already flooded
     if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className === color){
         floodTile(row, col, color);    // Toggle Flood
-        setTimeout(floodNeighbors(row, col, color), 15);   // Check the neighbors
+        // setTimeout(floodNeighbors(row, col, color), 2000);   // Check the neighbors
     }
 }
 
@@ -386,6 +388,7 @@ function gameOver() {
 function victory() {
     const completionContainer = document.getElementById('completion');
     const won = document.createElement('h4');
+    won.className = 'title_green';
     won.innerHTML = "You Won!";
     completionContainer.appendChild(won);
 }
@@ -393,6 +396,7 @@ function victory() {
 function defeat() {
     const completionContainer = document.getElementById('completion');
     const loss = document.createElement('h4');
+    loss.className = 'title_red';
     loss.innerHTML = "You Lost!";
     completionContainer.appendChild(loss);
 }
