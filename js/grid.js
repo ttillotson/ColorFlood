@@ -1,11 +1,11 @@
 import { handleFlood } from './flood_logic';
-import { setupDOM } from './setup';
 
 export const table = new Array(14);
-export const tiles = new Array(14);
+export let tiles;
 
 export function createGrid (rowCount, colCount, numColors) {
-    const gameContainer = setupDOM();
+    tiles = new Array(rowCount);
+    const gameContainer = document.getElementById('game_container');
     const displayGrid = document.createElement('section');
     displayGrid.id = 'flood_grid';
     gameContainer.appendChild(displayGrid);

@@ -4,4 +4,7 @@ module.exports = {
         filename: './js/bundle.js'
     },
     devtool: 'source-map',
+    resolve: {
+        extensions: ['.js', '.jsx', '*']
+    },
 };

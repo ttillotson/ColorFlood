@@ -1,13 +1,13 @@
 import { table, tiles } from './grid';
 import { numRows, numCols } from './main';
-import { maxMoves } from './setup';
+import { maxMoves, test } from './setup.js';
 
 // Call flood when creating grid to attach initial matches
 export let moves = -1; 
 let finished = false;
 
 export function handleFlood(oldColor, newColor) {
-    if (finished || moves > maxMoves) return;
+    if (finished || moves >= maxMoves) return;
     // Do nothing if clicked tile is original
     if (oldColor === newColor) return;
     moves++;
@@ -58,6 +58,7 @@ function gameOver() {
     if (floodedBoard()){
         alert('You won!');
     } else if (moves >= maxMoves) {
+        finished = true;
         alert('You Lost!');
     }
 }
@@ -66,4 +67,8 @@ function updateInfo() {
     const infoEl = document.getElementById('info');
     const movesEl = document.getElementById('moves_counter');
     movesEl.innerHTML = moves + '/' + maxMoves;
+}
+
+export function resetMoves() {
+    moves = -1;
 }

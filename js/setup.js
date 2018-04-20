@@ -1,15 +1,18 @@
-import { moves } from './flood_logic';
-import { numRows, numCols, numColors } from './main';
+import { moves, resetMoves } from './flood_logic';
 import { createGrid } from './grid';
+// import { numRows, numCols, numColors } from './main';
 
 // DOM Setup
 
-export let maxMoves = 25;
+let maxMoves = 25;
+export { maxMoves };
 
 export function setupDOM() {
+    const gameContainer = document.getElementById('game_container');
+    const displayGrid = document.createElement('section');
+    displayGrid.id = 'flood_grid';
     const infoAside = document.createElement('aside');
     infoAside.id = 'info';
-    const gameContainer = document.getElementById('game_container');
     const gameState = document.createElement('article');
     gameState.id = 'game_state';
     const gridForm = document.createElement('form');
@@ -27,7 +30,14 @@ export function setupDOM() {
 
     createInfo(gameState);
     createGameParams(gridForm);
+    addInstructions(instructions);
     return gameContainer;
+}
+
+function addInstructions(instructionsContainer) {
+    const instructions = document.createElement('p');
+    instructions.innerHTML = "The goal of the game is to flood the map with a single color. Start from the top left corner and work your way across the grid in as few as turns as possible!";
+    instructionsContainer.appendChild(instructions);
 }
 
 function createInfo(stateContainer) {
@@ -63,10 +73,10 @@ function createGameParams(gridForm) {
     const newGameButton = document.createElement('input');
     newGameButton.type = "submit";
     newGameButton.value = 'New Game';
-    newGameButton.onclick = () => createNewGame();
+    newGameButton.onclick = createNewGame;
 
 
-    gridForm.appendChild(gridDropdown);
+    // gridForm.appendChild(gridDropdown);
     gridForm.appendChild(colorDropdown);
     gridForm.appendChild(newGameButton);
     // Add logic to only Flood board if moves aren't above max
@@ -86,40 +96,37 @@ function createDropdown(optionArr) {
     return dropDown;
 }
 
-function createNewGame() {
+function createNewGame(e) {
+    if (e) e.preventDefault();
     // const { numRows, numCols, numColors } = setGridSpecs();
-    setGridSpecs();
-    createGrid(numRows, numCols, numColors);
+    const { numColors } = setGridSpecs();
+    const gameContainer = document.getElementById('game_container');
+    const info = document.getElementById('info');
+    const floodGrid = document.getElementById('flood_grid');
+    gameContainer.removeChild(floodGrid);
+    gameContainer.removeChild(info);
+    resetMoves();
+    setupDOM();
+    createGrid(14, 14, numColors);
 }
 
 
 
 function setGridSpecs() {
-    // let queryString = window.location.search;
-    // if (queryString === null || queryString === "" || queryString == "?") return;
-    // queryString = queryString.substr(1);
-    // const gameParams = queryString.split("&");
-    // for (let i = 0; i < gameParams.length; i++) {
-    //     const param = gameParams[i].split("=");
-    //     const paramName = param[0];
-    //     const paramValue = param[1];
-    //     if (paramName === 'size') {
-    //         numCols = Number(paramValue);
-    //         numRows = Number(paramValue);
-    //     } else if (paramName === 'numColors') {
-    //         numColors = Number(paramValue);
-    //     }
-    // }
-
     const colorDropdown = document.getElementById('color_count');
-    const gridDropdown = document.getElementById('grid_size');
-    debugger;
-    const colorCount = colorDropdown.value;
-    const gridSize = gridDropdown.value;
+    // const gridDropdown = document.getElementById('grid_size');
+    // numRows = Number(gridDropdown.value);
+    // numCols = Number(gridDropdown.value);
+    // numColors = Number(colorDropdown.value);
 
+    // const newRows = Number(gridDropdown.value);
+    // const newCols = Number(gridDropdown.value);
+    const newColors = Number(colorDropdown.value);
 
     let defaultConditions = (14 + 14) * 6;
-    let gameConditions = (numRows + numCols) * numColors;
+    // let gameConditions = (newRows + newCols) * newColors;
+    let gameConditions = 28 * newColors;
     maxMoves = Math.floor(25 * (gameConditions / defaultConditions));
-    return { numRows: gridSize, numCols: gridSize, numColors: colorCount}
+    // return { numRows: newRows, numCols: newCols, numColors: newColors };
+    return { numColors: newColors };
 }
