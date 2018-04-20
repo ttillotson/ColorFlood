@@ -249,7 +249,7 @@ function createGameParams(gridForm) {
     newGameButton.onclick = createNewGame;
 
     let label = document.createElement('label');
-    label.innerHTML= 'Color: ';
+    label.innerHTML= 'Colors: ';
     label.appendChild(colorDropdown);
     // gridForm.appendChild(gridDropdown);
     gridForm.appendChild(label);
@@ -336,7 +336,7 @@ function handleFlood(oldColor, newColor) {
         for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"]; col++) {
             if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) {
                 floodTile(row, col, newColor);
-                setInterval(floodNeighbors(row, col, newColor), 40000);
+                floodNeighbors(row, col, newColor);
             }
         }
     }

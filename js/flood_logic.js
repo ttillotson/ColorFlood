@@ -15,7 +15,7 @@ export function handleFlood(oldColor, newColor) {
         for (let col = 0; col < numCols; col++) {
             if (tiles[row][col].flooded) {
                 floodTile(row, col, newColor);
-                setInterval(floodNeighbors(row, col, newColor), 40000);
+                floodNeighbors(row, col, newColor);
             }
         }
     }

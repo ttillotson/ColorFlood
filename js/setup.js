@@ -79,7 +79,7 @@ function createGameParams(gridForm) {
     newGameButton.onclick = createNewGame;
 
     let label = document.createElement('label');
-    label.innerHTML= 'Color: ';
+    label.innerHTML= 'Colors: ';
     label.appendChild(colorDropdown);
     // gridForm.appendChild(gridDropdown);
     gridForm.appendChild(label);
