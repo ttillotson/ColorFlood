@@ -68,10 +68,10 @@ body {
   .links:last-child {
     padding-right: 15px; }
 
-.links_container {
+#links_container {
   display: block;
   width: 100%; }
-  .links_container i {
+  #links_container i {
     color: rgba(0, 0, 0, 0.7);
     font-size: 40px;
     padding: 0 10px;
