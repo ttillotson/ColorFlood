@@ -1,34 +1,49 @@
-// body {
-//     background-image: ;
-// }
+body {
+    background-image: url("https://res.cloudinary.com/tiptoptomes/image/upload/v1524188415/General/backgrounds-blank-blue-953214.jpg");
+    font-family: 'Do Hyeon', sans-serif;
+    color: #DBDAE8;
+    font-size: 30px;
+}
+
 #game_container {
     display: flex;
 }
-
 #info {
     min-width: 250px; // display: block;
+    text-align: center;
+    margin-right: 75px;
 }
-
 #flood_grid {
     margin: auto;
     .row {
         display: flex;
     }
 }
-
 #frame_container {
-    width: 80vw;
+    width: 1200px;
     margin: auto;
+}
+#completion {
+    min-height: 200px;
+    vertical-align: middle;
+}
+#form {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 75px;
+}
+
+.top_space {
+    padding-top: 30px;
 }
 
 .heading {
     display: flex;
     width: 300px;
     justify-content: space-between;
-    font-family: 'Do Hyeon', sans-serif;
     margin: auto;
     h1 {
-        font-size: 36px;
+        font-size: 42px;
     }
 }
 
@@ -84,24 +99,31 @@
 .title_purple {
     color: #C200FB;
 }
+
 .title_blue {
     color: #63ADF2;
 }
+
 .title_green {
     color: #A9F200;
 }
+
 .title_red {
     color: #FC2F00;
 }
+
 .title_yellow {
     color: #FFEA0A;
 }
+
 .title_orange {
     color: #FFB52D;
 }
+
 .title_grey {
     background-color: #A8AFAE;
 }
+
 .title_teal {
     background-color: #37F2D3;
 }

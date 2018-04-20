@@ -44,8 +44,10 @@ function createInfo(stateContainer) {
     const movesEl = document.createElement('h3');
     const instructionsEl = document.createElement('h4');
     movesEl.id = 'moves_counter';
+    movesEl.className = 'top_space';
     movesEl.innerHTML = moves + '/' + maxMoves;
     instructionsEl.innerHTML = "Click a tile and try to flood the map!";
+    // instructionsEl.className = 'top_space';
     stateContainer.appendChild(instructionsEl);
     stateContainer.appendChild(movesEl);
 }
@@ -75,9 +77,11 @@ function createGameParams(gridForm) {
     newGameButton.value = 'New Game';
     newGameButton.onclick = createNewGame;
 
-
+    let label = document.createElement('label');
+    label.innerHTML= 'Color: ';
+    label.appendChild(colorDropdown);
     // gridForm.appendChild(gridDropdown);
-    gridForm.appendChild(colorDropdown);
+    gridForm.appendChild(label);
     gridForm.appendChild(newGameButton);
     // Add logic to only Flood board if moves aren't above max
     // Prevents over-playing

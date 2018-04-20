@@ -214,8 +214,10 @@ function createInfo(stateContainer) {
     const movesEl = document.createElement('h3');
     const instructionsEl = document.createElement('h4');
     movesEl.id = 'moves_counter';
+    movesEl.className = 'top_space';
     movesEl.innerHTML = __WEBPACK_IMPORTED_MODULE_0__flood_logic__["b" /* moves */] + '/' + maxMoves;
     instructionsEl.innerHTML = "Click a tile and try to flood the map!";
+    // instructionsEl.className = 'top_space';
     stateContainer.appendChild(instructionsEl);
     stateContainer.appendChild(movesEl);
 }
@@ -245,9 +247,11 @@ function createGameParams(gridForm) {
     newGameButton.value = 'New Game';
     newGameButton.onclick = createNewGame;
 
-
+    let label = document.createElement('label');
+    label.innerHTML= 'Color: ';
+    label.appendChild(colorDropdown);
     // gridForm.appendChild(gridDropdown);
-    gridForm.appendChild(colorDropdown);
+    gridForm.appendChild(label);
     gridForm.appendChild(newGameButton);
     // Add logic to only Flood board if moves aren't above max
     // Prevents over-playing
@@ -371,11 +375,25 @@ function floodedBoard(){
 function gameOver() {
     floodedBoard();
     if (floodedBoard()){
-        alert('You won!');
+        victory();
     } else if (moves >= __WEBPACK_IMPORTED_MODULE_2__setup_js__["a" /* maxMoves */]) {
         finished = true;
-        alert('You Lost!');
+        defeat();
     }
+} 
+
+function victory() {
+    const completionContainer = document.getElementById('completion');
+    const won = document.createElement('h4');
+    won.innerHTML = "You Won!";
+    completionContainer.appendChild(won);
+}
+
+function defeat() {
+    const completionContainer = document.getElementById('completion');
+    const loss = document.createElement('h4');
+    loss.innerHTML = "You Lost!";
+    completionContainer.appendChild(loss);
 }
 
 function updateInfo() {

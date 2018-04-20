@@ -56,11 +56,25 @@ function floodedBoard(){
 function gameOver() {
     floodedBoard();
     if (floodedBoard()){
-        alert('You won!');
+        victory();
     } else if (moves >= maxMoves) {
         finished = true;
-        alert('You Lost!');
+        defeat();
     }
+} 
+
+function victory() {
+    const completionContainer = document.getElementById('completion');
+    const won = document.createElement('h4');
+    won.innerHTML = "You Won!";
+    completionContainer.appendChild(won);
+}
+
+function defeat() {
+    const completionContainer = document.getElementById('completion');
+    const loss = document.createElement('h4');
+    loss.innerHTML = "You Lost!";
+    completionContainer.appendChild(loss);
 }
 
 function updateInfo() {
