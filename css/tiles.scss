@@ -73,6 +73,24 @@ body {
     }
 }
 
+.links {
+    display: block;
+    float: right;
+    &:last-child {
+        padding-right: 15px;
+    }
+}
+
+.links_container {
+    display: block;
+    width: 100%;
+    i {
+        color: rgba(0, 0, 0, 0.7);
+        font-size: 40px;
+        padding: 0 10px;
+    }
+}
+
 #color_count {
     -webkit-appearance: none;
     padding: 0px 18px;

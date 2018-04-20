@@ -202,6 +202,7 @@ function setupDOM() {
     createInfo(gameState);
     createGameParams(gridForm);
     addInstructions(instructions);
+    addLinks();
     return gameContainer;
 }
 
@@ -307,6 +308,31 @@ function setGridSpecs() {
     return { numColors: newColors };
 }
 
+function addLinks() {
+    const page = document.getElementById("page_container");
+
+    const linksContainer = document.createElement('section');
+    const linksContent = document.createElement('article');
+    linksContainer.className = 'links_container';
+    linksContent.className = 'links';
+
+    const linkedIn = createLink("fab fa-linkedin", "https://www.linkedin.com/in/travis-tillotson");
+    const gitHub = createLink("fab fa-github", "https://github.com/ttillotson/ColorFlood");
+
+    page.appendChild(linksContainer);
+    linksContainer.appendChild(linksContent);
+    linksContent.appendChild(linkedIn);
+    linksContent.appendChild(gitHub);
+}
+
+function createLink(className, url) {
+    const link = document.createElement('a');
+    link.href = url;
+    const icon = document.createElement('i');
+    icon.className = className;
+    link.appendChild(icon);
+    return link;
+}
 
 /***/ }),
 /* 3 */

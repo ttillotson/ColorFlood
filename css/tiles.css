@@ -59,6 +59,20 @@ body {
   .heading h1 {
     font-size: 50px; }
 
+.links {
+  display: block;
+  float: right; }
+  .links:last-child {
+    padding-right: 15px; }
+
+.links_container {
+  display: block;
+  width: 100%; }
+  .links_container i {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 40px;
+    padding: 0 10px; }
+
 #color_count {
   -webkit-appearance: none;
   padding: 0px 18px;
