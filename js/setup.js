@@ -37,9 +37,12 @@ export function setupDOM() {
 }
 
 function addInstructions(instructionsContainer) {
-    const instructions = document.createElement('p');
-    instructions.innerHTML = "The goal of the game is to flood the map with a single color. Start from the top left corner and work your way across the grid in as few as turns as possible!";
-    instructionsContainer.appendChild(instructions);
+    const instructions1 = document.createElement('p');
+    const instructions2 = document.createElement('p');
+    instructions1.innerHTML = "Start from the top left corner and work your way across the grid by clicking your neighbor's color and flooding the map.";
+    instructions2.innerHTML = "Try to win in as few as turns as possible!";
+    instructionsContainer.appendChild(instructions1);
+    instructionsContainer.appendChild(instructions2);
 }
 
 function createInfo(stateContainer) {
