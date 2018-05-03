@@ -51,7 +51,7 @@ function createInfo(stateContainer) {
     movesEl.id = 'moves_counter';
     movesEl.className = 'top_space';
     movesEl.innerHTML = moves + '/' + maxMoves;
-    instructionsEl.innerHTML = "Click a tile and try to flood the map!";
+    instructionsEl.innerHTML = "Click tiles and flood the map with a single color!";
     // instructionsEl.className = 'top_space';
     stateContainer.appendChild(instructionsEl);
     stateContainer.appendChild(movesEl);
