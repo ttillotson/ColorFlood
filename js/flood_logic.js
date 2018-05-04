@@ -1,6 +1,7 @@
 import { table, tiles } from './grid';
 import { numRows, numCols } from './main';
 import { maxMoves, test } from './setup.js';
+import debounce from 'lodash.debounce';
 
 // Call flood when creating grid to attach initial matches
 export let moves = -1; 
@@ -20,7 +21,7 @@ export function handleFlood(oldColor, newColor) {
     //     }
     // }
     floodTile(0, 0, newColor, moves);
-    gameOver();
+    // gameOver();
     updateInfo();
 }
 
@@ -29,8 +30,10 @@ function floodTile(row, col, color, moveId) {
     tiles[row][col].className = color;
     tiles[row][col].lastChanged = moveId;
     tiles[row][col].flooded = true;
-    if (tiles[13][13]) gameOver();
+    // debugger;
     setTimeout(floodNeighbors.bind(null, ...arguments), 30);
+    debounce(gameOver, 70);
+    gameOver();
 }
 
 function floodNeighbors(row, col, color, moveId) {
@@ -57,13 +60,13 @@ function floodedBoard(){
             if (!tiles[row][col].flooded) return;
         }
     }
-    finished = true;
+    // finished = true;
     return true;
 }
 
 function gameOver() {
-    floodedBoard();
-
+    // floodedBoard();
+    // console.log('called');
     if (floodedBoard()){
         victory();
 
@@ -92,6 +95,7 @@ function updateInfo() {
     const infoEl = document.getElementById('info');
     const movesEl = document.getElementById('moves_counter');
     movesEl.innerHTML = moves + '/' + maxMoves;
+    // gameOver();
 }
 
 export function resetMoves() {
