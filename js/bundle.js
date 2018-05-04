@@ -357,35 +357,39 @@ function handleFlood(oldColor, newColor) {
     // Do nothing if clicked tile is original
     if (oldColor === newColor) return;
     moves++;
-    for (let row = 0; row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"]; row++) {
-        for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"]; col++) {
-            if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) {
-                floodTile(row, col, newColor);
-                floodNeighbors(row, col, newColor);
-            }
-        }
-    }
+    // for (let row = 0; row < numRows; row++) {
+    //     for (let col = 0; col < numCols; col++) {
+    //         if (tiles[row][col].flooded) {
+    //             floodTile(row, col, newColor);
+    //             floodNeighbors(row, col, newColor);
+    //         }
+    //     }
+    // }
+    floodTile(0, 0, newColor, moves);
     gameOver();
     updateInfo();
 }
 
-function floodTile(row, col, color) {
+function floodTile(row, col, color, moveId) {
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className = '';
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className = color;
+    __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].lastChanged = moveId;
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded = true;
+    setTimeout(floodNeighbors.bind(null, ...arguments), 75);
 }
 
-function floodNeighbors(row, col, color) {
-    if (row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"] - 1) canBeFlooded(row + 1, col, color);
-    if (row > 0) canBeFlooded(row - 1, col, color);
-    if (col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"] - 1) canBeFlooded(row, col + 1, color);
-    if (col > 0) canBeFlooded(row, col - 1, color);
+function floodNeighbors(row, col, color, moveId) {
+    if (row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"] - 1) canBeFlooded(row + 1, col, color, moveId);
+    if (row > 0) canBeFlooded(row - 1, col, color, moveId);
+    if (col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"] - 1) canBeFlooded(row, col + 1, color, moveId);
+    if (col > 0) canBeFlooded(row, col - 1, color, moveId);
 }
 
-function canBeFlooded(row, col, color) {
-    if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) return; // Skip if it is already flooded
-    if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className === color){
-        floodTile(row, col, color);    // Toggle Flood
+function canBeFlooded(row, col, color, moveId) {
+    // if (tiles[row][col].flooded) return; // Skip if it is already flooded
+    if ((__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className === color || __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) && 
+        (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].lastChanged === undefined || __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].lastChanged !== moveId)){
+        floodTile(row, col, color, moveId);    // Toggle Flood
         // setTimeout(floodNeighbors(row, col, color), 2000);   // Check the neighbors
     }
 }
