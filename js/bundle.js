@@ -367,7 +367,7 @@ function handleFlood(oldColor, newColor) {
     //     }
     // }
     floodTile(0, 0, newColor, moves);
-    // gameOver();
+    gameOver();
     updateInfo();
 }
 
@@ -376,7 +376,7 @@ function floodTile(row, col, color, moveId) {
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className = color;
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].lastChanged = moveId;
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded = true;
-    gameOver();
+    if (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][13][13]) gameOver();
     setTimeout(floodNeighbors.bind(null, ...arguments), 30);
 }
 

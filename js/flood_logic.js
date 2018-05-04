@@ -20,7 +20,7 @@ export function handleFlood(oldColor, newColor) {
     //     }
     // }
     floodTile(0, 0, newColor, moves);
-    // gameOver();
+    gameOver();
     updateInfo();
 }
 
@@ -29,7 +29,7 @@ function floodTile(row, col, color, moveId) {
     tiles[row][col].className = color;
     tiles[row][col].lastChanged = moveId;
     tiles[row][col].flooded = true;
-    gameOver();
+    if (tiles[13][13]) gameOver();
     setTimeout(floodNeighbors.bind(null, ...arguments), 30);
 }
 
