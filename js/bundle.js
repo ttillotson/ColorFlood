@@ -150,11 +150,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 let numRows = 14;
 let numCols = 14;
-let numColors = 6;
+let numColors = 4;
 
 document.addEventListener('DOMContentLoaded', () => {
     Object(__WEBPACK_IMPORTED_MODULE_0__setup__["b" /* setupDOM */])();
     Object(__WEBPACK_IMPORTED_MODULE_1__grid__["a" /* createGrid */])(numRows, numCols, numColors);
+    // createInfo();
 });
 
 
@@ -174,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // DOM Setup
 
-let maxMoves = 25;
+let maxMoves = 16;
 
 
 function setupDOM() {
@@ -221,7 +222,7 @@ function createInfo(stateContainer) {
     movesEl.id = 'moves_counter';
     movesEl.className = 'top_space';
     movesEl.innerHTML = __WEBPACK_IMPORTED_MODULE_0__flood_logic__["b" /* moves */] + '/' + maxMoves;
-    instructionsEl.innerHTML = "Click a tile and try to flood the map!";
+    instructionsEl.innerHTML = "Click tiles and flood the map with a single color!";
     // instructionsEl.className = 'top_space';
     stateContainer.appendChild(instructionsEl);
     stateContainer.appendChild(movesEl);
@@ -236,9 +237,9 @@ function createGameParams(gridForm) {
     ["30 x 30", 30]
     ];
     const colors = [["3", 3],
-    ["4", 4],
+    ["4", 4, true],
     ["5", 5],
-    ["6", 6, true],
+    ["6", 6],
     ["7", 7],
     ["8", 8]
     ];
@@ -258,8 +259,6 @@ function createGameParams(gridForm) {
     // gridForm.appendChild(gridDropdown);
     gridForm.appendChild(label);
     gridForm.appendChild(newGameButton);
-    // Add logic to only Flood board if moves aren't above max
-    // Prevents over-playing
 }
 
 function createDropdown(optionArr) {
@@ -280,17 +279,10 @@ function createNewGame(e) {
     // const { numRows, numCols, numColors } = setGridSpecs();
     const { numColors } = setGridSpecs();
     const gameContainer = document.getElementById('game_container');
-    const leftContainer = document.getElementById('left_container');
-    const links = document.getElementById('links_container');
-    const page = document.getElementById('page_container');
-    const info = document.getElementById('info');
     const floodGrid = document.getElementById('flood_grid');
 
-    page.removeChild(links);
     gameContainer.removeChild(floodGrid);
-    leftContainer.removeChild(info);
     Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["c" /* resetMoves */])();
-    setupDOM();
     Object(__WEBPACK_IMPORTED_MODULE_1__grid__["a" /* createGrid */])(14, 14, numColors);
 }
 
@@ -307,10 +299,10 @@ function setGridSpecs() {
     // const newCols = Number(gridDropdown.value);
     const newColors = Number(colorDropdown.value);
 
-    let defaultConditions = (14 + 14) * 6;
+    let defaultConditions = (14 + 14) * 4;
     // let gameConditions = (newRows + newCols) * newColors;
     let gameConditions = 28 * newColors;
-    maxMoves = Math.floor(25 * (gameConditions / defaultConditions));
+    maxMoves = Math.floor(16 * (gameConditions / defaultConditions));
     // return { numRows: newRows, numCols: newCols, numColors: newColors };
     return { numColors: newColors };
 }

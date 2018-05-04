@@ -4,7 +4,7 @@ import { createGrid } from './grid';
 
 // DOM Setup
 
-let maxMoves = 25;
+let maxMoves = 16;
 export { maxMoves };
 
 export function setupDOM() {
@@ -66,9 +66,9 @@ function createGameParams(gridForm) {
     ["30 x 30", 30]
     ];
     const colors = [["3", 3],
-    ["4", 4],
+    ["4", 4, true],
     ["5", 5],
-    ["6", 6, true],
+    ["6", 6],
     ["7", 7],
     ["8", 8]
     ];
@@ -88,8 +88,6 @@ function createGameParams(gridForm) {
     // gridForm.appendChild(gridDropdown);
     gridForm.appendChild(label);
     gridForm.appendChild(newGameButton);
-    // Add logic to only Flood board if moves aren't above max
-    // Prevents over-playing
 }
 
 function createDropdown(optionArr) {
@@ -110,17 +108,10 @@ function createNewGame(e) {
     // const { numRows, numCols, numColors } = setGridSpecs();
     const { numColors } = setGridSpecs();
     const gameContainer = document.getElementById('game_container');
-    const leftContainer = document.getElementById('left_container');
-    const links = document.getElementById('links_container');
-    const page = document.getElementById('page_container');
-    const info = document.getElementById('info');
     const floodGrid = document.getElementById('flood_grid');
 
-    page.removeChild(links);
     gameContainer.removeChild(floodGrid);
-    leftContainer.removeChild(info);
     resetMoves();
-    setupDOM();
     createGrid(14, 14, numColors);
 }
 
@@ -137,10 +128,10 @@ function setGridSpecs() {
     // const newCols = Number(gridDropdown.value);
     const newColors = Number(colorDropdown.value);
 
-    let defaultConditions = (14 + 14) * 6;
+    let defaultConditions = (14 + 14) * 4;
     // let gameConditions = (newRows + newCols) * newColors;
     let gameConditions = 28 * newColors;
-    maxMoves = Math.floor(25 * (gameConditions / defaultConditions));
+    maxMoves = Math.floor(16 * (gameConditions / defaultConditions));
     // return { numRows: newRows, numCols: newCols, numColors: newColors };
     return { numColors: newColors };
 }
