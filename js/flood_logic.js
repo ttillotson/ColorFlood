@@ -20,7 +20,7 @@ export function handleFlood(oldColor, newColor) {
     //     }
     // }
     floodTile(0, 0, newColor, moves);
-    gameOver();
+    // gameOver();
     updateInfo();
 }
 
@@ -29,7 +29,8 @@ function floodTile(row, col, color, moveId) {
     tiles[row][col].className = color;
     tiles[row][col].lastChanged = moveId;
     tiles[row][col].flooded = true;
-    setTimeout(floodNeighbors.bind(null, ...arguments), 75);
+    gameOver();
+    setTimeout(floodNeighbors.bind(null, ...arguments), 30);
 }
 
 function floodNeighbors(row, col, color, moveId) {
@@ -51,6 +52,8 @@ function canBeFlooded(row, col, color, moveId) {
 function floodedBoard(){
     for (let row = 0; row < numRows; row++){
         for (let col = 0; col < numCols; col++){
+            console.log(tiles[row][col].flooded);
+            console.log(`${row} ${col}`);
             if (!tiles[row][col].flooded) return;
         }
     }
@@ -60,6 +63,7 @@ function floodedBoard(){
 
 function gameOver() {
     floodedBoard();
+
     if (floodedBoard()){
         victory();
 
@@ -73,7 +77,7 @@ function victory() {
     const won = document.createElement('h4');
     won.className = 'title_green';
     won.innerHTML = "You Won!";
-    completionContainer.appendChild(won);
+    if (!completionContainer.firstChild) completionContainer.appendChild(won);
 }
 
 function defeat() {
@@ -81,7 +85,7 @@ function defeat() {
     const loss = document.createElement('h4');
     loss.className = 'title_red';
     loss.innerHTML = "You Lost!";
-    completionContainer.appendChild(loss);
+    if (!completionContainer.firstChild) completionContainer.appendChild(loss);
 }
 
 function updateInfo() {

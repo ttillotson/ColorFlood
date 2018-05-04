@@ -280,7 +280,8 @@ function createNewGame(e) {
     const { numColors } = setGridSpecs();
     const gameContainer = document.getElementById('game_container');
     const floodGrid = document.getElementById('flood_grid');
-
+    const completionContainer = document.getElementById('completion');
+    if (completionContainer.firstChild) completionContainer.removeChild(completionContainer.firstChild);
     gameContainer.removeChild(floodGrid);
     Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["c" /* resetMoves */])();
     Object(__WEBPACK_IMPORTED_MODULE_1__grid__["a" /* createGrid */])(14, 14, numColors);
@@ -366,7 +367,7 @@ function handleFlood(oldColor, newColor) {
     //     }
     // }
     floodTile(0, 0, newColor, moves);
-    gameOver();
+    // gameOver();
     updateInfo();
 }
 
@@ -375,7 +376,8 @@ function floodTile(row, col, color, moveId) {
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className = color;
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].lastChanged = moveId;
     __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded = true;
-    setTimeout(floodNeighbors.bind(null, ...arguments), 75);
+    gameOver();
+    setTimeout(floodNeighbors.bind(null, ...arguments), 30);
 }
 
 function floodNeighbors(row, col, color, moveId) {
@@ -397,6 +399,8 @@ function canBeFlooded(row, col, color, moveId) {
 function floodedBoard(){
     for (let row = 0; row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"]; row++){
         for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"]; col++){
+            console.log(__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded);
+            console.log(`${row} ${col}`);
             if (!__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) return;
         }
     }
@@ -406,6 +410,7 @@ function floodedBoard(){
 
 function gameOver() {
     floodedBoard();
+
     if (floodedBoard()){
         victory();
 
@@ -419,7 +424,7 @@ function victory() {
     const won = document.createElement('h4');
     won.className = 'title_green';
     won.innerHTML = "You Won!";
-    completionContainer.appendChild(won);
+    if (!completionContainer.firstChild) completionContainer.appendChild(won);
 }
 
 function defeat() {
@@ -427,7 +432,7 @@ function defeat() {
     const loss = document.createElement('h4');
     loss.className = 'title_red';
     loss.innerHTML = "You Lost!";
-    completionContainer.appendChild(loss);
+    if (!completionContainer.firstChild) completionContainer.appendChild(loss);
 }
 
 function updateInfo() {
