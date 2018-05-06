@@ -1,4 +1,4 @@
-import { table, tiles } from './grid';
+import { board, tiles } from './grid';
 import { numRows, numCols } from './main';
 import { maxMoves, test } from './setup.js';
 import debounce from 'lodash.debounce';
@@ -20,9 +20,22 @@ export function handleFlood(oldColor, newColor) {
     //         }
     //     }
     // }
+    floodBoard(newColor);
     floodTile(0, 0, newColor, moves);
     // gameOver();
     updateInfo();
+}
+
+function floodBoard(newColor) {
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            if (board[row][col].flooded || board[row][col].color === newColor) {
+                board[row][col].flooded = true;
+                board[row][col].color = newColor;
+            }
+        }
+    }
+    gameOver();
 }
 
 function floodTile(row, col, color, moveId) {
@@ -31,10 +44,11 @@ function floodTile(row, col, color, moveId) {
     tiles[row][col].lastChanged = moveId;
     tiles[row][col].flooded = true;
     // debugger;
+    // gameOver();
     setTimeout(floodNeighbors.bind(null, ...arguments), 30);
-    debounce(gameOver, 70);
-    gameOver();
+    // // floodNeighbors.bind(null, ...arguments)();
 }
+
 
 function floodNeighbors(row, col, color, moveId) {
     if (row < numRows - 1) canBeFlooded(row + 1, col, color, moveId);
@@ -52,12 +66,14 @@ function canBeFlooded(row, col, color, moveId) {
     }
 }
 
-function floodedBoard(){
+function floodedBoard() {
     for (let row = 0; row < numRows; row++){
         for (let col = 0; col < numCols; col++){
-            console.log(tiles[row][col].flooded);
+            // console.log(board);
+            console.log(board[row][col].flooded);
             console.log(`${row} ${col}`);
-            if (!tiles[row][col].flooded) return;
+            if (!board[row][col].flooded) return;
+
         }
     }
     // finished = true;
@@ -68,9 +84,10 @@ function gameOver() {
     // floodedBoard();
     // console.log('called');
     if (floodedBoard()){
+        finished = true;
         victory();
-
     } else if (moves >= maxMoves) {
+        finished = true;
         defeat();
     }
 } 

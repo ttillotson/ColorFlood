@@ -1,6 +1,6 @@
 import { handleFlood } from './flood_logic';
 
-export const table = new Array(14);
+export const board = new Array(14);
 export let tiles;
 
 export function createGrid (rowCount, colCount, numColors) {
@@ -11,22 +11,22 @@ export function createGrid (rowCount, colCount, numColors) {
     gameContainer.appendChild(displayGrid);
 
     for (let row = 0; row < rowCount; row++) {
-        table[row] = new Array(colCount);
+        board[row] = new Array(colCount);
         const newRow = document.createElement('ul');
         newRow.className = 'row';
         tiles[row] = newRow;
         for (let col = 0; col < colCount; col++){
             const tileColor = colorClass(numColors);
-            table[row][col] = { color: tileColor, flooded: false };
+            board[row][col] = { color: tileColor, flooded: false };
             tiles[row][col] = buildTile(tileColor, row, col, newRow);
         }
         displayGrid.appendChild(newRow);
     }
-    table[0][0].flooded = true;
+    board[0][0].flooded = true;
     tiles[0][0].flooded = true;
     handleFlood(null, tiles[0][0].className);
     
-    return table;
+    return board;
 }
 
 function buildTile(tileColor, row, col, parentEl) {

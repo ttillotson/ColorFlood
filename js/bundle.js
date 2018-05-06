@@ -68,13 +68,13 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return tiles; });
-/* harmony export (immutable) */ __webpack_exports__["a"] = createGrid;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return tiles; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = createGrid;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__flood_logic__ = __webpack_require__(3);
 
 
-const table = new Array(14);
-/* unused harmony export table */
+const board = new Array(14);
+/* harmony export (immutable) */ __webpack_exports__["a"] = board;
 
 let tiles;
 
@@ -86,22 +86,22 @@ function createGrid (rowCount, colCount, numColors) {
     gameContainer.appendChild(displayGrid);
 
     for (let row = 0; row < rowCount; row++) {
-        table[row] = new Array(colCount);
+        board[row] = new Array(colCount);
         const newRow = document.createElement('ul');
         newRow.className = 'row';
         tiles[row] = newRow;
         for (let col = 0; col < colCount; col++){
             const tileColor = colorClass(numColors);
-            table[row][col] = { color: tileColor, flooded: false };
+            board[row][col] = { color: tileColor, flooded: false };
             tiles[row][col] = buildTile(tileColor, row, col, newRow);
         }
         displayGrid.appendChild(newRow);
     }
-    table[0][0].flooded = true;
+    board[0][0].flooded = true;
     tiles[0][0].flooded = true;
     Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["a" /* handleFlood */])(null, tiles[0][0].className);
     
-    return table;
+    return board;
 }
 
 function buildTile(tileColor, row, col, parentEl) {
@@ -154,7 +154,7 @@ let numColors = 4;
 
 document.addEventListener('DOMContentLoaded', () => {
     Object(__WEBPACK_IMPORTED_MODULE_0__setup__["b" /* setupDOM */])();
-    Object(__WEBPACK_IMPORTED_MODULE_1__grid__["a" /* createGrid */])(numRows, numCols, numColors);
+    Object(__WEBPACK_IMPORTED_MODULE_1__grid__["b" /* createGrid */])(numRows, numCols, numColors);
     // createInfo();
 });
 
@@ -284,7 +284,7 @@ function createNewGame(e) {
     if (completionContainer.firstChild) completionContainer.removeChild(completionContainer.firstChild);
     gameContainer.removeChild(floodGrid);
     Object(__WEBPACK_IMPORTED_MODULE_0__flood_logic__["c" /* resetMoves */])();
-    Object(__WEBPACK_IMPORTED_MODULE_1__grid__["a" /* createGrid */])(14, 14, numColors);
+    Object(__WEBPACK_IMPORTED_MODULE_1__grid__["b" /* createGrid */])(14, 14, numColors);
 }
 
 
@@ -369,21 +369,35 @@ function handleFlood(oldColor, newColor) {
     //         }
     //     }
     // }
+    floodBoard(newColor);
     floodTile(0, 0, newColor, moves);
     // gameOver();
     updateInfo();
 }
 
-function floodTile(row, col, color, moveId) {
-    __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className = '';
-    __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className = color;
-    __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].lastChanged = moveId;
-    __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded = true;
-    // debugger;
-    setTimeout(floodNeighbors.bind(null, ...arguments), 30);
-    __WEBPACK_IMPORTED_MODULE_3_lodash_debounce___default()(gameOver, 70);
+function floodBoard(newColor) {
+    for (let row = 0; row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"]; row++) {
+        for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"]; col++) {
+            if (__WEBPACK_IMPORTED_MODULE_0__grid__["a" /* board */][row][col].flooded || __WEBPACK_IMPORTED_MODULE_0__grid__["a" /* board */][row][col].color === newColor) {
+                __WEBPACK_IMPORTED_MODULE_0__grid__["a" /* board */][row][col].flooded = true;
+                __WEBPACK_IMPORTED_MODULE_0__grid__["a" /* board */][row][col].color = newColor;
+            }
+        }
+    }
     gameOver();
 }
+
+function floodTile(row, col, color, moveId) {
+    __WEBPACK_IMPORTED_MODULE_0__grid__["c" /* tiles */][row][col].className = '';
+    __WEBPACK_IMPORTED_MODULE_0__grid__["c" /* tiles */][row][col].className = color;
+    __WEBPACK_IMPORTED_MODULE_0__grid__["c" /* tiles */][row][col].lastChanged = moveId;
+    __WEBPACK_IMPORTED_MODULE_0__grid__["c" /* tiles */][row][col].flooded = true;
+    // debugger;
+    // gameOver();
+    setTimeout(floodNeighbors.bind(null, ...arguments), 30);
+    // // floodNeighbors.bind(null, ...arguments)();
+}
+
 
 function floodNeighbors(row, col, color, moveId) {
     if (row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"] - 1) canBeFlooded(row + 1, col, color, moveId);
@@ -394,19 +408,21 @@ function floodNeighbors(row, col, color, moveId) {
 
 function canBeFlooded(row, col, color, moveId) {
     // if (tiles[row][col].flooded) return; // Skip if it is already flooded
-    if ((__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].className === color || __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) && 
-        (__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].lastChanged === undefined || __WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].lastChanged !== moveId)){
+    if ((__WEBPACK_IMPORTED_MODULE_0__grid__["c" /* tiles */][row][col].className === color || __WEBPACK_IMPORTED_MODULE_0__grid__["c" /* tiles */][row][col].flooded) && 
+        (__WEBPACK_IMPORTED_MODULE_0__grid__["c" /* tiles */][row][col].lastChanged === undefined || __WEBPACK_IMPORTED_MODULE_0__grid__["c" /* tiles */][row][col].lastChanged !== moveId)){
         floodTile(row, col, color, moveId);    // Toggle Flood
         // setTimeout(floodNeighbors(row, col, color), 2000);   // Check the neighbors
     }
 }
 
-function floodedBoard(){
+function floodedBoard() {
     for (let row = 0; row < __WEBPACK_IMPORTED_MODULE_1__main__["numRows"]; row++){
         for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_1__main__["numCols"]; col++){
-            console.log(__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded);
+            // console.log(board);
+            console.log(__WEBPACK_IMPORTED_MODULE_0__grid__["a" /* board */][row][col].flooded);
             console.log(`${row} ${col}`);
-            if (!__WEBPACK_IMPORTED_MODULE_0__grid__["b" /* tiles */][row][col].flooded) return;
+            if (!__WEBPACK_IMPORTED_MODULE_0__grid__["a" /* board */][row][col].flooded) return;
+
         }
     }
     // finished = true;
@@ -417,9 +433,10 @@ function gameOver() {
     // floodedBoard();
     // console.log('called');
     if (floodedBoard()){
+        finished = true;
         victory();
-
     } else if (moves >= __WEBPACK_IMPORTED_MODULE_2__setup_js__["a" /* maxMoves */]) {
+        finished = true;
         defeat();
     }
 } 
