@@ -109,7 +109,8 @@ function createNewGame(e) {
     const { numColors } = setGridSpecs();
     const gameContainer = document.getElementById('game_container');
     const floodGrid = document.getElementById('flood_grid');
-
+    const completionContainer = document.getElementById('completion');
+    if (completionContainer.firstChild) completionContainer.removeChild(completionContainer.firstChild);
     gameContainer.removeChild(floodGrid);
     resetMoves();
     createGrid(14, 14, numColors);
