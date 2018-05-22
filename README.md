@@ -4,7 +4,12 @@
 
 ### Background and Overview
 
-Color Flood is an perfect-information, grid-based, strategy game. A mouthful I know, but the user's objective is to convert the entire grid to a single color by clicking tiles on the board and "flooding" the map from the top left tile. The fewer turns the better!
+Color Flood is an perfect-information strategy game where the player's goal is to flood the board with a single color. Starting from the top left corner, the player clicks tiles on the board and changes the current color of the "flood" as it infects the map. The fewer the turns the better!
+
+### Demo
+
+![flood it demo](https://user-images.githubusercontent.com/29738420/40338613-ee8f80e4-5d2a-11e8-9b9a-af546e6f8409.gif)
+
 
 ### Functionality and MVPs
 
@@ -12,36 +17,27 @@ Users will be able to:
 
 - [ ] Start and restart games
 
-- [ ] Select colors from the bottom to influence the grid-map
-
 - [ ] Track the number of moves
+
+- [ ] Click handler on every tile for color change
 
 - [ ] Select how many colors to use
 
 Games will be randomly seeded.
 
-### Demo
-
-![flood it demo](https://user-images.githubusercontent.com/29738420/39071719-fd0e5b64-449c-11e8-9a4f-dc497d7ff838.gif)
-
-
 ### Wireframes
 
 This single-page app will consist of a grid map, clickable tiles and a counter tracking moves made.
 
-![App Wireframe](https://user-images.githubusercontent.com/29738420/38792381-96e6509c-4101-11e8-89e0-066bee8798eb.png)
+![App Wireframe](https://user-images.githubusercontent.com/29738420/40338412-c82d8398-5d29-11e8-9979-ac5613ac334a.png)
 
 ### Architecture and Technologies
 
-The project will utilize:
+The project utilizes:
 
-- Vanilla Javascript: handling the core logic and DOM manipulation
+- Javascript: handles the core logic, DOM setup and manipulation
 
 - Webpack simplify script deployment
-
-This project may feature:
-
-- `HTML5 Canvas`
 
 ### Project Timeline
 
@@ -94,8 +90,8 @@ __Friday Day 5:__ Submit Project
 
 - [ ] User Submitted Colors
 
-- [ ] Required Turns for Completion
-
-- [ ] High Scores
+- [ ] Fastest Completion
 
 - [ ] Wins/Losses tracking
+
+- [ ] Adjustable Grid Sizes
