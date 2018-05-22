@@ -248,6 +248,7 @@ function createGameParams(gridForm) {
     gridDropdown.id = 'grid_size';
     const colorDropdown = createDropdown(colors);
     colorDropdown.id = 'color_count';
+    colorDropdown.onchange = createNewGame;
     const newGameButton = document.createElement('input');
     newGameButton.type = "submit";
     newGameButton.value = 'New Game';
